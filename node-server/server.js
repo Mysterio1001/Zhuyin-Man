@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const port = 9876;
+const port = 9876; // 若要修改埠號，在這裡修改！
 
 app.use(express.text());
 

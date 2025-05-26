@@ -10,16 +10,23 @@
 
 ---
 
-## 📦 使用前準備
+## 使用前準備
 
-- macOS（並安裝 [Hammerspoon](https://www.hammerspoon.org/)）
+- macOS（並安裝 [Hammerspoon](https://www.hammerspoon.org/)，安裝後請於終端機輸入以下指令）
+
+  ```bash
+  mkdir -p ~/.hammerspoon
+  echo 'dofile(os.getenv("HOME") .. "/my-extension/hammerspoon/init.lua")' >> ~/.hammerspoon/init.lua
+
+  ```
+
 - Node.js 已安裝（若未安裝，請使用以下指令於終端機安裝：）
 
 ```bash
 brew install node
 ```
 
-### 🔌 Chrome 擴充功能安裝步驟
+### Chrome 擴充功能安裝步驟
 
 1️⃣ 開啟 **Google Chrome**  
 2️⃣ 點選右上角的「⋮」選單 → **更多工具** → **擴充功能**  
@@ -28,7 +35,7 @@ brew install node
 5️⃣ 選擇 **`chrome-extension`** 資料夾  
 6️⃣ 安裝完成後即可在 Chrome 中使用本工具！
 
-### ⚡️ 設定 Chrome 快捷鍵
+### 設定 Chrome 快捷鍵
 
 1️⃣ 仍在 **擴充功能管理頁面**，點選左上角的「☰」按鈕  
 2️⃣ 選擇 **「鍵盤快速鍵」**（或「快捷鍵」）  
@@ -38,7 +45,7 @@ brew install node
 
 ---
 
-## 📁 檔案結構
+## 檔案結構
 
 ```plaintext
 my-extension/
@@ -61,29 +68,25 @@ my-extension/
 local chrome = hs.application.get("Google Chrome")
 ```
 
-### 2. node-server (server.js)
+### 2. 預設埠號為 9876，若你電腦已有其他程式使用這個埠號，以下檔案自行修改成其他可用埠號（例如 9877）。
+
+#### 2. node-server (server.js)
 
 ```javascript
-// 這裡使用的是 Hammerspoon 的 URL Scheme，若你有自己客製化的 URL Scheme（例如加上密碼或路徑），要在這裡對應修改。
-// 預設埠號為 9876，若你電腦已有其他程式使用這個埠號，可自行修改成其他可用埠號（例如 9877）。
-const url = `hammerspoon://input?data=${encodeURIComponent(req.body)}`;
+const port = 9876;
 ```
 
-### 3. chrome-extension (manifest.json)
+#### 3. chrome-extension (manifest.json)
 
 ```json
-// 預設的快捷鍵是 Ctrl+Shift+R，如需更改，請到 manifest.json 中找到：
-"suggested_key": {
-  "default": "Ctrl+Shift+R"
-}
+"host_permissions": ["http://127.0.0.1:9876/"],
 ```
 
-### 4. chrome-extension (background.js)
+#### 4. chrome-extension (background.js)
 
 ```javascript
 // 如果伺服器埠號修改過，記得在 background.js 中找到：
 fetch("http://127.0.0.1:9876", { ... })
-// 一併改成正確的埠號
 ```
 
 ⚠️ **小提醒**

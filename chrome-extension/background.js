@@ -27,6 +27,7 @@ chrome.commands.onCommand.addListener(async (command) => {
 
       // 直接用 Service Worker 的 fetch 發送到 Hammerspoon
       fetch("http://127.0.0.1:9876", {
+        // 若要修改埠號，在這裡修改！
         method: "POST",
         headers: { "Content-Type": "text/plain" },
         body: result,
