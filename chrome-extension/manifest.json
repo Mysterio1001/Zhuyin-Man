@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "文字重新輸入工具",
+  "version": "1.0",
+  "description": "把目前文字送到 Hammerspoon 做注音重新輸入",
+  "permissions": ["activeTab", "scripting"],
+  "host_permissions": ["http://127.0.0.1:9876/"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "commands": {
+    "trigger-reinput": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+Z"
+      },
+      "description": "送出目前文字給 Hammerspoon"
+    }
+  }
+}
