@@ -23,14 +23,20 @@ hs.urlevent.bind("input", function(eventName, params)
   hs.timer.usleep(100000)
 
   -- 逐字輸入
-  for c in text:gmatch(".") do
+ for c in text:gmatch(".") do
   if c == " " then
     hs.eventtap.keyStroke({}, "space")
-  else
-    hs.eventtap.keyStroke({}, c)
+  elseif c:match("[%w%p]") then
+    -- 嘗試安全執行
+    local ok = pcall(function()
+      hs.eventtap.keyStroke({}, c)
+    end)
+    if not ok then
+      print("⚠️ 不支援的字元（跳過）：" .. c)
+    end
   end
   hs.timer.usleep(1000)
-  end
+end
 end)
 
 hs.urlevent.httpCallback = true
