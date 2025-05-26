@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "文字重新輸入工具",
+  "name": "注音人",
   "version": "1.0",
-  "description": "把目前文字送到 Hammerspoon 做注音重新輸入",
+  "description": "忘記切換輸入法的救星",
   "permissions": ["activeTab", "scripting"],
   "host_permissions": ["http://127.0.0.1:9876/"],
   "background": {
