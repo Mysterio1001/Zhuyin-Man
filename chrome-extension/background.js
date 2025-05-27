@@ -1,6 +1,6 @@
 chrome.commands.onCommand.addListener(async (command) => {
   if (command === "trigger-reinput") {
-    console.log("✅ 快捷鍵觸發：抓取目前輸入欄位文字");
+    console.log("快捷鍵觸發：抓取目前輸入欄位文字");
 
     const [tab] = await chrome.tabs.query({
       active: true,
@@ -16,7 +16,7 @@ chrome.commands.onCommand.addListener(async (command) => {
         if (activeElement && activeElement.value !== undefined) {
           return activeElement.value;
         } else {
-          alert("⚠️ 沒有偵測到輸入欄位！");
+          alert("沒有偵測到輸入欄位！");
           return null;
         }
       },
