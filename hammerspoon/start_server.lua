@@ -1,7 +1,7 @@
 hs.urlevent.bind("start_server", function()
   local homeDir = os.getenv("HOME")
   local serverPath = homeDir .. "/my-extension/node-server/server.js"
-  local nodePath = os.getenv("HOME") .. "/.nvm/versions/node/v18.20.7/bin/node" --這裡是本機node的路徑
+  local nodePath = os.getenv("HOME") .. "/opt/homebrew/bin/node" --這裡是本機node的路徑
 
   -- 使用 hs.task.spawn 執行
   local task = hs.task.new(nodePath, nil, {serverPath})
