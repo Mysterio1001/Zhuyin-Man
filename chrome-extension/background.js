@@ -25,6 +25,27 @@ chrome.commands.onCommand.addListener(async (command) => {
     if (result) {
       console.log("🎯 擷取到文字：", result);
 
+      // 檢查 Node.js 伺服器是否運行中
+      try {
+        const healthCheck = await fetch("http://127.0.0.1:9876/health", {
+          method: "GET",
+        });
+        if (!healthCheck.ok) throw new Error("伺服器未就緒");
+        console.log("✅ 伺服器已運行");
+      } catch (err) {
+        console.warn("⚠️ 伺服器未運行，嘗試叫 Hammerspoon 開伺服器！");
+        // 呼叫 URL Scheme
+        await chrome.scripting.executeScript({
+          target: { tabId: tab.id },
+          func: (url) => {
+            window.open(url);
+          },
+          args: ["hammerspoon://start_server"],
+        });
+        // 等待伺服器啟動
+        await new Promise((r) => setTimeout(r, 100));
+      }
+
       // 直接用 Service Worker 的 fetch 發送到 Hammerspoon
       fetch("http://127.0.0.1:9876", {
         // 若要修改埠號，在這裡修改！
