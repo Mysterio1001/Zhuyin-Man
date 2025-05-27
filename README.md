@@ -8,6 +8,12 @@
 
 本工具可讓你快速把瀏覽器輸入欄位的文字，透過 Hammerspoon 切換到注音輸入法並自動重新輸入！
 
+**提醒**
+目前版本為開發測試階段
+使用快捷鍵時第一次會啟動 node.js 而無反應為正常現象
+使用時會因權限問你詢問使用者是否同意
+可以勾選永遠同意就不會在跳出
+
 ---
 
 ## 使用前準備
@@ -16,7 +22,8 @@
 
   ```bash
   mkdir -p ~/.hammerspoon
-  echo 'dofile(os.getenv("HOME") .. "/my-extension/hammerspoon/init.lua")' >> ~/.hammerspoon/init.lua
+  echo 'dofile(os.getenv("HOME") .. "/my-extension/hammerspoon/start_server.lua")' >> ~/.hammerspoon/init.lua
+  echo 'dofile(os.getenv("HOME") .. "/my-extension/hammerspoon/input_zhuyin.lua")' >> ~/.hammerspoon/init.lua
 
   ```
 
@@ -70,23 +77,22 @@ local chrome = hs.application.get("Google Chrome")
 
 ### 2. 預設埠號為 9876，若你電腦已有其他程式使用這個埠號，以下檔案自行修改成其他可用埠號（例如 9877）。
 
-#### 2. node-server (server.js)
+#### node-server/server.js
 
 ```javascript
 const port = 9876;
 ```
 
-#### 3. chrome-extension (manifest.json)
+#### chrome-extension/manifest.json
 
 ```json
 "host_permissions": ["http://127.0.0.1:9876/"],
 ```
 
-#### 4. chrome-extension (background.js)
+#### chrome-extension/background.js
 
 ```javascript
-// 如果伺服器埠號修改過，記得在 background.js 中找到：
-fetch("http://127.0.0.1:9876", { ... })
+const port = 9876;
 ```
 
 ⚠️ **小提醒**

@@ -1,4 +1,6 @@
 chrome.commands.onCommand.addListener(async (command) => {
+  const port = 9876; // 若要修改埠號，在這裡修改！
+
   if (command === "trigger-reinput") {
     console.log("快捷鍵觸發：抓取目前輸入欄位文字");
 
@@ -27,7 +29,7 @@ chrome.commands.onCommand.addListener(async (command) => {
 
       // 檢查 Node.js 伺服器是否運行中
       try {
-        const healthCheck = await fetch("http://127.0.0.1:9876/health", {
+        const healthCheck = await fetch(`http://127.0.0.1:${port}/health`, {
           method: "GET",
         });
         if (!healthCheck.ok) throw new Error("伺服器未就緒");
@@ -47,8 +49,7 @@ chrome.commands.onCommand.addListener(async (command) => {
       }
 
       // 直接用 Service Worker 的 fetch 發送到 Hammerspoon
-      fetch("http://127.0.0.1:9876", {
-        // 若要修改埠號，在這裡修改！
+      fetch(`http://127.0.0.1:${port}`, {
         method: "POST",
         headers: { "Content-Type": "text/plain" },
         body: result,
