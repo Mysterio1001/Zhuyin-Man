@@ -95,6 +95,20 @@ const port = 9876;
 const port = 9876;
 ```
 
+### 3. 使用 Node Version Manager(nvm) 管理器等安裝 node.js 的使用者
+
+需要到 start_server.lua 修改
+
+```lua
+local nodePath = os.getenv("HOME") .. "/opt/homebrew/bin/node" --這裡是本機node的路徑
+```
+
+-於終端機輸入得到路徑後 將 "使用者/..../node" 貼到上方提示路徑取代"/opt/homebrew/bin/node"
+
+```bash
+which node
+```
+
 ⚠️ **小提醒**
 
 - 本工具僅支援 **macOS**，且必須授權 Hammerspoon **「輔助使用權限」**。
