@@ -14,13 +14,29 @@ chrome.commands.onCommand.addListener(async (command) => {
     const [{ result }] = await chrome.scripting.executeScript({
       target: { tabId: tab.id },
       func: () => {
-        const activeElement = document.activeElement;
-        if (activeElement && activeElement.value !== undefined) {
-          return activeElement.value;
-        } else {
-          alert("沒有偵測到輸入欄位！");
-          return null;
+        const el = document.activeElement;
+
+        // 1. 嘗試直接用 activeElement.value
+        if (el && "value" in el && typeof el.value === "string") {
+          return el.value;
         }
+
+        // 2. 嘗試 contenteditable 文字
+        if (el && el.isContentEditable) {
+          return el.innerText || el.textContent || null;
+        }
+
+        // 3. 嘗試搜尋頁面上看起來像 input 的元素
+        const input = document.querySelector(
+          'input[type="search"], input[type="text"], [contenteditable="true"]'
+        );
+        if (input) {
+          if ("value" in input) return input.value;
+          if (input.isContentEditable)
+            return input.innerText || input.textContent;
+        }
+
+        return null;
       },
     });
 
