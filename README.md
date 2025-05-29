@@ -19,17 +19,22 @@
 ## 使用前準備
 
 - macOS（並安裝 [Hammerspoon](https://www.hammerspoon.org/)，安裝後請於終端機輸入以下指令）
+- 請將 Zhuyin-Man-master 解壓縮後放置於 user(使用者)下
 
   ```bash
   mkdir -p ~/.hammerspoon
-  echo 'dofile(os.getenv("HOME") .. "/my-extension/hammerspoon/start_server.lua")' >> ~/.hammerspoon/init.lua
-  echo 'dofile(os.getenv("HOME") .. "/my-extension/hammerspoon/input_zhuyin.lua")' >> ~/.hammerspoon/init.lua
+  echo 'dofile(os.getenv("HOME") .. "/Zhuyin-Man-master/hammerspoon/start_server.lua")' >> ~/.hammerspoon/init.lua
+  echo 'dofile(os.getenv("HOME") .. "/Zhuyin-Man-master/hammerspoon/input_zhuyin.lua")' >> ~/.hammerspoon/init.lua
 
   ```
 
 - Node.js 已安裝（若未安裝，請使用以下指令於終端機安裝：）
 
 ```bash
+# 安裝 Homebrew（如尚未安裝）
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# 安裝 Node.js
 brew install node
 ```
 
